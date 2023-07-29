@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Generate Text Meme</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <header>
+    <div class="responsive">
+      <h3>Simple Generate Text Meme</h3>
+    </div>
+  </header>
+  <main>
+    <div class="responsive">
+      <div class="canvas-editor">
+        <div class="responsive-canvas">
+          <canvas id="canvas-gen" width="500" height="500"></canvas>
+        </div>
+        <div class="control-canvas">
+          <blockquote style="background-color: #ff6464;">
+            <h4>Informasi</h4>
+            <p>Canvas belum responsive, pastikan foto / gambar hanya dapat 1:1 atau potrait</p>
+          </blockquote>
+          <label>Teks Atas</label>
+          <input type="text" name="text-top" placeholder="Teks Atas..." maxlength="26">
+          <label>Teks Bawah</label>
+          <input type="text" name="text-bottom" placeholder="Teks Bawah..." maxlength="26">
+          <hr/>
+          <button name="import">Masukan Gambar</button>
+          <button name="export">Export Hasil (.png)</button>
+          <button name="share">Bagikan hasil</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="responsive">
+      <center>Create with 👏 by <a href="//trakteer.id/ernestoyoofi">Ernestoyoofi</a></center>
+    </div>
+  </footer>
+  <script src="./app.js"></script>
+</body>
+</html>
