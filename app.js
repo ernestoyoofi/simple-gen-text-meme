@@ -6,10 +6,13 @@ const txBotm = c('input[name="text-bottom"]')
 const btnInm = c('button[name="import"]')
 const btnExp = c('button[name="export"]')
 const btnShare = c('button[name="share"]')
+const btnRes = c('input[name="default-res"]')
 let dataImage = {
   src: "",
   w: "",
-  h: ""
+  h: "",
+  def_w: 0,
+  def_h: 0
 }
 
 function GenerateText() {
@@ -17,8 +20,13 @@ function GenerateText() {
   ctx.clearRect(0, 0, canvasMeme.width, canvasMeme.height)
   const img = new Image()
   img.src = dataImage.src
-  ctx.drawImage(img, 0, 0, dataImage.w, dataImage.h)
-  ctx.font = "bold 26px Poppins"
+  if(btnRes.checked) {
+    ctx.drawImage(img, 0, 0, dataImage.def_w, dataImage.def_h)
+    ctx.font = `bold ${26+(dataImage.def_w/20)}px Poppins`
+  } else {
+    ctx.drawImage(img, 0, 0, dataImage.w, dataImage.h)
+    ctx.font = "bold 26px Poppins"
+  }
   ctx.textAlign = "center"
   ctx.fillStyle = "white"
   ctx.strokeStyle = "black"
@@ -28,6 +36,18 @@ function GenerateText() {
   ctx.strokeText(txBotm.value.toUpperCase(), canvasMeme.width/2, canvasMeme.height - 30)
   ctx.fillText(txBotm.value.toUpperCase(), canvasMeme.width/2, canvasMeme.height - 30)
 }
+btnRes.addEventListener("change", (e) => {
+  console.log(btnRes.checked)
+  if(btnRes.checked) {
+    canvasMeme.width = dataImage.def_w
+    canvasMeme.height = dataImage.def_h
+    GenerateText()
+  } else {
+    canvasMeme.width = dataImage.w
+    canvasMeme.height = dataImage.h
+    GenerateText()
+  }
+})
 btnShare.addEventListener("click", (e) => {
   canvasMeme.toBlob(async(blobs) => {
     if(!('share' in navigator)) {
@@ -95,11 +115,19 @@ btnInm.addEventListener("click", (e) => {
         }
         dataImage = {
           src: reader.result,
-          ...canva
+          ...canva,
+          def_w: img.width,
+          def_h: img.height
         }
-        canvasMeme.width = canva.w
-        canvasMeme.height = canva.h
-        GenerateText()
+        if(btnRes.checked) {
+          canvasMeme.width = dataImage.def_w
+          canvasMeme.height = dataImage.def_h
+          GenerateText()
+        } else {
+          canvasMeme.width = dataImage.w
+          canvasMeme.height = dataImage.h
+          GenerateText()
+        }
       }
       img.src = reader.result
     }
